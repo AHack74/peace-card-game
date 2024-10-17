@@ -16,27 +16,50 @@ p1_hand = deck[:26]
 p2_hand = deck[26:]
 
 def card_comparison(p1_card, p2_card):
-    """This is the logic that compares two cards to find the stronger card
-		Return 1 if player 1's card is strong, 2 for player 2
-		if the cards are equal, return 0.
+    if ranks.index(p1_card[0]) > ranks.index(p2_card[0]):
+        return 1
+    elif ranks.index(p1_card[0]) < ranks.index(p2_card[0]):
+        return 2
+    else:
+        return 0
 
-		Hint, using the index function will make this very simple (one liner)"""
-    # Your code here
-
-def play_round(player1_hand, player2_hand):
-    """Play a single round of the game.
-		That is, each player flips a card, and the winner is determined using the card_comparison function
-		if both players flip the same value card, call the war function
-	"""
-    # Your code here
-
-def war(player1_hand, player2_hand):
-    """Handle the 'war' scenario when cards are equal.
-		recall the rules of war, both players put 3 cards face down, 
-		then both players flip face up a 4th card. The player with the stronger
-		card takes all the cards.		
-	"""
-    # Your code here
+def play_round(p1_hand, p2_hand):
+    # Check if both players are able to play
+    if len(p1_hand) == 0:
+        return "Player one has no more cards, Game over!"
+    elif len(p2_hand) == 0:
+        return "Player two has no more cards, Game over!"
+    
+	# Both players flip a card
+    p1_card = p1_hand.pop(0)
+    p2_card = p2_hand.pop(0)
+    
+    # Compare the card
+    result = card_comparison(p1_card, p2_card)
+    
+	# What happens for each scenario
+    if result == 1:
+        print("Player one wins the round")
+        p1_hand.extend([p1_card, p2_card])
+    elif result == 2:
+        print("Player two wins the rounf")
+        p2_hand.extend([p1_card, p2_card])
+    else:
+        print("Time for Peace")
+        return war()
+    
+def war(p1_hand, p2_hand):
+    # Check if both players can go to Peace
+    if len(p1_hand) < 4:
+        return "Player one does not have enough cards to go to Peace, Game over!"
+    elif len(p2_hand) < 4:
+        return "Player two does not have enough cards to go to Peace, Game over!"
+    
+	# Remove first 4 cards from each player's hand
+    del p1_hand[:4]
+    del p2_hand[:4]
+    
+    
 
 def play_game():
     """Main function to run the game."""
