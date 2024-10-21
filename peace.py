@@ -49,7 +49,7 @@ def play_round(p1_hand, p2_hand):
         return war()
     
 def war(p1_hand, p2_hand):
-    # Check if both players can go to Peace
+    # Check if both players can go to War
     if len(p1_hand) < 4:
         return "Player one does not have enough cards to go to Peace, Game over!"
     elif len(p2_hand) < 4:
@@ -58,8 +58,6 @@ def war(p1_hand, p2_hand):
 	# Remove first 4 cards from each player's hand
     del p1_hand[:4]
     del p2_hand[:4]
-    
-    
 
 def play_game():
     """Main function to run the game."""
