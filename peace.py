@@ -1,4 +1,4 @@
-# Import Random module
+# Import Random module.
 import random
 
 # Define the ranks and suits
