@@ -42,7 +42,7 @@ def play_round(p1_hand, p2_hand):
         print("Player one wins the round")
         p1_hand.extend([p1_card, p2_card])
     elif result == 2:
-        print("Player two wins the rounf")
+        print("Player two wins the round")
         p2_hand.extend([p1_card, p2_card])
     else:
         print("Time for Peace")
@@ -56,8 +56,21 @@ def war(p1_hand, p2_hand):
         return "Player two does not have enough cards to go to Peace, Game over!"
     
 	# Remove first 4 cards from each player's hand
-    del p1_hand[:4]
-    del p2_hand[:4]
+    p1_war_cards = [p1_hand.pop(0) for _ in range(4)]
+    p2_war_cards = [p2_hand.pop(0) for _ in range(4)]
+
+    # Compare 4th card to determine the winner
+    result = card_comparison(p1_war_cards[3],p2_war_cards[3])
+
+    if result == 1:
+        print("Player one wins Peace")
+        p1_hand.extend(p1_war_cards + p2_war_cards)
+    elif result == 2:
+        print("Player two wins Peace")
+        p2_hand.extend(p1_war_cards + p2_war_cards)
+    else:
+        print("Peace ended in a draw, go to Peace again!")
+        return war(p1_hand, p2_hand)
 
 def play_game():
     """Main function to run the game."""
