@@ -45,16 +45,29 @@ def play_round(p1_hand, p2_hand):
         print("Player two wins the round")
         p2_hand.extend([p1_card, p2_card])
     else:
+        if len(p1_hand) < 4:
+            p1_hand.clear()
+            print("Player one does not have enough cards for war, Game Over!")
+            return
+        elif len(p2_hand) < 4:
+            p2_hand.clear()
+            print("Player two does not have enough cards for war, Game Over!")
+            return
+
         print("Time for Peace")
         war_pile = [p1_card, p2_card]
         return war(p1_hand, p2_hand, war_pile)
     
 def war(p1_hand, p2_hand, war_pile):
     # Check if both players can go to War
-    if len(p1_hand) < 3:
-        return "Player one does not have enough cards for war, Game Over!"
-    elif len(p2_hand) < 3:
-        return "Player two does not have enough cards for war, Game Over!"
+    if len(p1_hand) < 4:
+        p1_hand.clear() 
+        print("Player one does not have enough cards for war, Game Over!")
+        return
+    elif len(p2_hand) < 4:
+        p2_hand.clear
+        print("Player two does not have enough cards for war, Game Over!")
+        return
         
     # Remove first 4 cards from each player's hand
     p1_war_cards = [p1_hand.pop(0) for _ in range(4)]
@@ -83,7 +96,6 @@ def play_game(p1_hand, p2_hand):
         print(f"Round {round_counter}")
         play_round(p1_hand, p2_hand)
         round_counter += 1
-        print(f"Player 1 has {len(p1_hand)} cards. Player 2 has {len(p2_hand)} cards.")
 
 
     if len(p1_hand) == 0:
